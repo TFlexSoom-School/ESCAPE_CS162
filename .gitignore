@@ -1,0 +1,13 @@
+# Tristan Hilbert
+# 3/9/18
+# Git ignore file for a C++ Project
+
+# C++ Object Files
+*.o
+
+# Executable Name
+*escape
+escape
+
+# Header File Directories
+*.d
