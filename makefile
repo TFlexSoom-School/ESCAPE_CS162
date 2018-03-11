@@ -1,4 +1,4 @@
-c# Tristan Hilbert
+# Tristan Hilbert
 # 3/9/18
 # Makefile for escape_from_CS162
 #
@@ -11,8 +11,8 @@ EXECUTABLE = escape
 DEBUG_EXECUTABLE = d_escape
 
 # Get all cpp files
-SOURCE_FILES := $(wildcard *.cpp)
-CURSED_SOURCE_FILES := $(wildcard *.cc)
+SOURCE_FILES := $(wildcard */*.cpp)
+CURSED_SOURCE_FILES := $(wildcard */*.cc)
 # Get all Objects
 OBJECTS = $(SOURCE_FILES:%.cpp=%.o)
 CURSED_OBJECTS = $(SOURCE_FILES:%.cc=%.o)
@@ -30,7 +30,7 @@ clean:
 .cpp.o:	
 	$(CC) $(FLAGS) -c $< -o $@
 
-.cp.o:
+.cc.o:
 	$(CC) $(FLAGS) $(CURSE) -c $< -o $@
 
 
