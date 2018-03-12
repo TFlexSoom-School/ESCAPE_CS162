@@ -20,6 +20,9 @@ class Maze_Object{
       int get_row();
       int get_col();
       virtual bool can_occupy() =0;
+      virtual char get_sym() =0;
+      virtual void adjacent(int& score) =0;
+
 };
 
 
