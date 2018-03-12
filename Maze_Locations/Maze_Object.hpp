@@ -16,6 +16,7 @@ class Maze_Object{
 
    public:
       Maze_Object(int, int);
+      virtual ~Maze_Object();
       void set_location(int, int);
       int get_row();
       int get_col();

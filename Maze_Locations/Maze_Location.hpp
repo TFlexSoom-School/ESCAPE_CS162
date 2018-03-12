@@ -12,6 +12,7 @@
 class Maze_Location{
 
    public:
+      virtual ~Maze_Location();
       //This will identify if the location can be stepped on
       virtual bool is_occupiable() =0;
 

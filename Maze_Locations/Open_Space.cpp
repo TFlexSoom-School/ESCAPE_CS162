@@ -9,6 +9,8 @@
 
 Open_Space::Open_Space():_contains_person(false){}
 
+Open_Space::~Open_Space(){}
+
 bool Open_Space::is_occupiable(){
    return !this->_contains_person;
 }

@@ -8,6 +8,8 @@
 #include "Ladder.hpp"
 
 Ladder::Ladder(): Open_Space(){}
+Ladder::~Ladder(){}
+
 
 char Ladder::get_sym(){
    return '^';

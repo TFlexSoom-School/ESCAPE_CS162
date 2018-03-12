@@ -13,7 +13,8 @@ class Maze_Person: public Maze_Object{
 
    public:
       Maze_Person(int, int);
-      
+      virtual ~Maze_Person();
+
       //Return true
       bool can_occupy();
       virtual char get_move() = 0;

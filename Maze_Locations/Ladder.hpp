@@ -14,6 +14,7 @@ class Ladder: public Open_Space{
 
    public:
       Ladder();
+      ~Ladder();
       char get_sym();
 };
 

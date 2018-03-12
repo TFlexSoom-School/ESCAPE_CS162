@@ -14,6 +14,7 @@ class Student_Spawn: public Open_Space{
 
    public:
       Student_Spawn();
+      ~Student_Spawn();
       virtual char get_sym();
 
 };

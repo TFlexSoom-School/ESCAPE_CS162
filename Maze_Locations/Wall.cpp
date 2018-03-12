@@ -7,6 +7,8 @@
 
 #include "Wall.hpp"
 
+Wall::Wall(){}
+Wall::~Wall(){}
 
 bool Wall::is_occupiable(){
    return false;

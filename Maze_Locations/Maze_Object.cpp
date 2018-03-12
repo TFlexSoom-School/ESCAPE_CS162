@@ -10,6 +10,8 @@
 
 Maze_Object::Maze_Object(int row, int col): _row(row), _col(col){}
 
+Maze_Object::~Maze_Object(){}
+
 void Maze_Object::set_location(int row, int col){
    this->_row = row;
    this->_col = col;

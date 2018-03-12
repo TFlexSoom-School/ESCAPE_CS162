@@ -9,6 +9,8 @@
 
 Student_Spawn::Student_Spawn(): Open_Space(){}
 
+Student_Spawn::~Student_Spawn(){}
+
 char Student_Spawn::get_sym(){
    return '@';
 }

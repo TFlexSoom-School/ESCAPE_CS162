@@ -13,6 +13,8 @@
 class Wall: public Maze_Location{
    
    public:
+      Wall();
+      ~Wall();
       bool is_occupiable();
       virtual char get_sym();
 };
