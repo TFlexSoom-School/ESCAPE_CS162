@@ -43,7 +43,7 @@ char TA::get_sym(){
    return 'T';
 }
 
-void TA::adjacent(int& score){
+void TA::adjacent(int& score, bool same_space){
    score = 0;
    //The TA stole ur programming skills!!!
 }

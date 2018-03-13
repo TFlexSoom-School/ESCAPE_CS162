@@ -19,7 +19,8 @@ char Interprid_Student::get_sym(){
    return '*';
 }
 
-void Interprid_Student::adjacent(int& score){}
+/* Does nothing for there is no interaction between students */
+void Interprid_Student::adjacent(int& score, bool same_space){}
 
 
 

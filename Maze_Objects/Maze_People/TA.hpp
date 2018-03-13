@@ -29,7 +29,7 @@ class TA: public Maze_Person{
       //Derived from Maze_Object... Wait why don't u use multiple inh...
       //shhhhhhh not another word
       virtual char get_sym();
-      virtual void adjacent(int& score);
+      virtual void adjacent(int&, bool same_space = false);
    
 
 };

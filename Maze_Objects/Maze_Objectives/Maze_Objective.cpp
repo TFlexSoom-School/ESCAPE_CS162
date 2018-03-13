@@ -13,3 +13,4 @@ Maze_Objective::~Maze_Objective(){}
 bool Maze_Objective::can_occupy(){
    return false;
 }
+void Maze_Objective::reset(){}

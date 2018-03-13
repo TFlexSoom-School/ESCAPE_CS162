@@ -11,8 +11,8 @@ EXECUTABLE = escape
 DEBUG_EXECUTABLE = d_escape
 
 # Get all cpp files
-SOURCE_FILES := $(wildcard */*.cpp)
-CURSED_SOURCE_FILES := $(wildcard */*.cc)
+SOURCE_FILES := $(wildcard */*.cpp) $(wildcard */*/*.cpp)
+CURSED_SOURCE_FILES := $(wildcard */*.cc) $(wildcard */*/*.cpp)
 # Get all Objects
 OBJECTS = $(SOURCE_FILES:%.cpp=%.o)
 CURSED_OBJECTS = $(SOURCE_FILES:%.cc=%.o)

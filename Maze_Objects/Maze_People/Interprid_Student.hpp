@@ -25,7 +25,7 @@ class Interprid_Student: public Maze_Person{
       //Derived from Maze_Object... Wait why don't u use multiple inh...
       //shhhhhhh not another word
       char get_sym();
-      void adjacent(int& score);
+      void adjacent(int&, bool same_space = false);
 
 };
 

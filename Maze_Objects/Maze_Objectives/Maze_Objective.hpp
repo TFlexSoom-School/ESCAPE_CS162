@@ -17,8 +17,9 @@ class Maze_Objective: public Maze_Object{
       Maze_Objective(int, int);
       virtual ~Maze_Objective();
       bool can_occupy();
+      virtual void reset();
       virtual char get_sym() =0;
-      virtual void adjacent(int& score) =0;
+      virtual void adjacent(int&, bool same_space = false) =0;
 };
 
 #endif
