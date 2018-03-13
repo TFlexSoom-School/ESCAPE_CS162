@@ -6,10 +6,10 @@
  */
 
 #include "Maze_Level.hpp"
-#include "Wall.hpp"
-#include "Open_Space.hpp"
-#include "Ladder.hpp"
-#include "Student_Spawn.hpp"
+#include "../Maze_Locations/Wall.hpp"
+#include "../Maze_Locations/Open_Space.hpp"
+#include "../Maze_Locations/Ladder.hpp"
+#include "../Maze_Locations/Student_Spawn.hpp"
 #include <iostream>
 
 Maze_Level::Maze_Level(const char** array, int row, int col){

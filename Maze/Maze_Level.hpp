@@ -8,7 +8,7 @@
 #ifndef __MAZE_LEVEL_HPP
 #define __MAZE_LEVEL_HPP
 
-#include "Maze_Location.hpp"
+#include "../Maze_Locations/Maze_Location.hpp"
 #include <vector>
 class Maze_Level{
    

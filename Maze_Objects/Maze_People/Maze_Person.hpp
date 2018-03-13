@@ -7,7 +7,7 @@
 
 #ifndef __MAZE_PERSON_HPP
 #define __MAZE_PERSON_HPP
-#include "Maze_Object.hpp"
+#include "../Maze_Object.hpp"
 
 class Maze_Person: public Maze_Object{
 

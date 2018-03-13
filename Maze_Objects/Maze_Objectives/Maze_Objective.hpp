@@ -8,7 +8,7 @@
 #ifndef __MAZE_OBJECTIVE_HPP
 #define __MAZE_OBJECTIVE_HPP
 
-#include "Maze_Object.hpp"
+#include "../Maze_Object.hpp"
 
 class Maze_Objective: public Maze_Object{
 
