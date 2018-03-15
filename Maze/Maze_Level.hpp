@@ -21,7 +21,7 @@ class Maze_Level{
 
       void get_spawn(int&, int&);
       Maze_Location* at(int, int);
-      void display_maze();
+      char** display_maze();
 };
 
 #endif

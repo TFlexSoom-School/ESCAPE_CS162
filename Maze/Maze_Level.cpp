@@ -52,21 +52,23 @@ Maze_Location* Maze_Level::at(int row, int col){
    return this->map.at(row).at(col);
 }
 
-void Maze_Level::display_maze(){
-   for(std::vector< std::vector<Maze_Location *> >::iterator it = this->map.begin(); 
-	 it != this->map.end(); it ++){
-
-      for(std::vector<Maze_Location *>::iterator jt = it->begin(); jt != it->end(); jt ++){
-	 std::cout << (*jt)->get_sym();
+char ** Maze_Level::display_maze(){
+   char** returnValue(new char*[this->map.size()]);
+   int k;
+   for(int i = 0; i < this->map.size(); i ++){
+      k = map[i].size();
+      returnValue[i] = new char[k];
+      for(int j = 0; j < k; j ++){
+	 returnValue[i][j] = map[i][j]->get_sym();
       }
-      std::cout << std::endl;
    }
-}
+   return returnValue; 
 
+}
 void Maze_Level::get_spawn(int& r, int& c){
    for(int i = 0; i < this->map.size(); i ++){
       for(int j = 0; j < this->map[i].size(); j ++){
-         if(dynamic_cast<Student_Spawn*>(this->map.at(i).at(j)) != NULL){
+	 if(dynamic_cast<Student_Spawn*>(this->map.at(i).at(j)) != NULL){
 	    r = i;
 	    c = j;
 	 }
