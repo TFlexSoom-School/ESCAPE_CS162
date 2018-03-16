@@ -12,7 +12,7 @@
 #include "../Maze_Locations/Student_Spawn.hpp"
 #include <iostream>
 
-Maze_Level::Maze_Level(const char** array, int row, int col){
+Maze_Level::Maze_Level(char** array, int row, int col){
    for(int i = 0; i < row; i ++){
       std::vector<Maze_Location*> vec;
       for(int j = 0; j < col; j ++){

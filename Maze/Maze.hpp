@@ -16,7 +16,7 @@ class Maze{
       std::vector<Maze_Level*> levels;
       int current_lev;
    public:
-      Maze(const char ***, int, int, int);
+      Maze(char ***, int, int, int);
       ~Maze();
 
       char ** get_current_lev();

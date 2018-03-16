@@ -16,7 +16,7 @@ class Maze_Level{
       std::vector< std::vector<Maze_Location*> > map;
 
    public:
-      Maze_Level(const char**, int, int);
+      Maze_Level(char**, int, int);
       ~Maze_Level();
 
       void get_spawn(int&, int&);

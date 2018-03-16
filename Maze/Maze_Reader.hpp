@@ -25,7 +25,7 @@ class Maze_Reader{
       void get_dimensions();
 
    public:
-      Maze_Reader(const char*, bool);
+      Maze_Reader(const char*, bool read = true);
       ~Maze_Reader();
       void set_new_path(const char*);
       void read();

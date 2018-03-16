@@ -8,7 +8,7 @@
 #include "Maze.hpp"
 #include <iostream>
 
-Maze::Maze(const char *** maze_char_array, int floors, int rows, int cols):levels(), current_lev(0){
+Maze::Maze(char *** maze_char_array, int floors, int rows, int cols):levels(), current_lev(0){
    for(int i = 0; i < floors; i ++){
       this->levels.push_back(new Maze_Level(maze_char_array[i], rows, cols));
    }
