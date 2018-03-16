@@ -30,11 +30,11 @@ Maze_Reader::Maze_Reader(const char* file_path, bool read):
 Maze_Reader::~Maze_Reader(){
    for(int i = this->_n_floors - 1; i >= 0; i --){
       for(int j = this->_rows - 1; j >= 0; j --){
-	 delete [] _content[i][j];
+	 delete [] this->_content[i][j];
       }
-      delete [] _content[i];
+      delete [] this->_content[i];
    }
-   delete _content;
+   delete [] _content;
    this->_file_in.close();
 }
 
