@@ -7,7 +7,8 @@
 
 #include "Maze_Reader.hpp"
 #include <iostream>
-
+#include <string>
+#include <cstring>
 Maze_Reader::Maze_Reader(const char* file_path, bool read): 
    _file_in(file_path),
    _n_floors(0),
@@ -27,8 +28,8 @@ Maze_Reader::Maze_Reader(const char* file_path, bool read):
 }
 
 Maze_Reader::~Maze_Reader(){
-   for(int i = this->_n_floors; i >= 0; i --){
-      for(int j = this->_rows; j >= 0; j --){
+   for(int i = this->_n_floors - 1; i >= 0; i --){
+      for(int j = this->_rows - 1; j >= 0; j --){
 	 delete [] _content[i][j];
       }
       delete [] _content[i];
@@ -52,19 +53,22 @@ void Maze_Reader::read(){
       return;
    }
    this->get_dimensions();
+   std::string reader;
+   getline(this->_file_in, reader);
    this->_content = new char**[this->_n_floors];
    for(int i = 0; i < this->_n_floors; i ++){
       this->_content[i] = new char*[_rows];
       for(int j = 0; j < this->_rows; j ++){
 	 this->_content[i][j] = new char[_cols];
-         for(int k = 0; k < this->_cols; k ++){
-	    this->_file_in >> this->_content[i][j][k];
-	    if(this->_file_in.fail() && k != this->_cols - 1){
-	       std::cerr << "File stream did not have required content" << std::endl;
-	       this->_file_in.close();
-	       this->_file_in.clear();
-	       return;
-	    }
+	 if(this->_file_in.fail() && j != this->_rows - 1){
+	    std::cerr << "File stream did not have required content" << std::endl;
+	    this->_file_in.close();
+	    this->_file_in.clear();
+	    return;
+	 }else{
+	    getline(this->_file_in, reader);
+	    std::cout << reader << std::endl;
+	    strncpy(this->_content[i][j], reader.c_str(), reader.size());
 	 }
       }
    }
@@ -98,3 +102,4 @@ void Maze_Reader::get_dimensions(){
       this->_file_in.clear();
    }
 }
+
