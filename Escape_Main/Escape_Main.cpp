@@ -58,10 +58,6 @@ int main(int argc, char* argv[]){
          return 1;
       }
       Maze* maze = new Maze(read->get_content(), read->get_n_floors(), read->get_rows(), read->get_cols());
-      char ** array(maze->get_current_lev());
-      for(int i = 0; i < read->get_rows(); i ++){
-         std::cout << array[i] << std::endl;
-      }
       //Instantiate Game with Maze or Instantiate Maze with Reader
       delete read;
       delete maze;
