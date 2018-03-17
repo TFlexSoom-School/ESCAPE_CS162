@@ -38,6 +38,32 @@ Maze_Level::Maze_Level(char** array, int row, int col){
    }
 }
 
+Maze_Level::Maze_Level(const Maze_Level& l){
+   for(int i = 0; i < l.map.size(); i ++){
+      std::vector<Maze_Location*> vec;
+      for(int j = 0; j < l.map.at(i).size(); j ++){
+	 switch(l.map[i][j]->get_sym()){
+	    case '#':
+	       vec.push_back(new Wall);
+	       break;
+	    case '@':
+	       vec.push_back(new Student_Spawn());
+	       break;
+	    case '^':
+	       vec.push_back(new Ladder());
+	       break;
+	    case ' ':
+	       vec.push_back(new Open_Space());
+	       break;
+	    default:
+	       vec.push_back(new Open_Space());
+	       break;
+	 }
+      }
+      this->map.push_back(vec);
+   }
+}
+
 Maze_Level::~Maze_Level(){
    for(std::vector< std::vector<Maze_Location *> >::iterator it = this->map.begin(); 
 	 it != this->map.end(); it ++){
@@ -75,3 +101,13 @@ void Maze_Level::get_spawn(int& r, int& c){
       }
    }
 }
+
+int Maze_Level::get_row(){
+   return this->map.size();
+}
+
+int Maze_Level::get_col(){
+   return this->map.at(0).size();
+}
+
+

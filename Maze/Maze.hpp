@@ -13,11 +13,15 @@
 class Maze{
 
    private:
-      std::vector<Maze_Level*> levels;
-      int current_lev;
+      std::vector<Maze_Level*> _levels;
+      int _current_lev;
    public:
       Maze(char ***, int, int, int);
+      Maze(const Maze&);
       ~Maze();
+
+      int get_row();
+      int get_col();
 
       char ** get_current_lev();
       void level_up();

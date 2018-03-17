@@ -17,11 +17,15 @@ class Maze_Level{
 
    public:
       Maze_Level(char**, int, int);
+      Maze_Level(const Maze_Level&);
       ~Maze_Level();
 
       void get_spawn(int&, int&);
       Maze_Location* at(int, int);
       char** display_maze();
+
+      int get_row();
+      int get_col();
 };
 
 #endif

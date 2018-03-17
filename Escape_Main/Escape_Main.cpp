@@ -41,7 +41,7 @@
 
 #include "../Maze/Maze.hpp"
 #include "../Maze/Maze_Reader.hpp"
-//#include "Game.hpp"
+#include "Game.hpp"
 
 /* Main Method */
 int main(int argc, char* argv[]){
@@ -58,9 +58,8 @@ int main(int argc, char* argv[]){
          return 1;
       }
       Maze* maze = new Maze(read->get_content(), read->get_n_floors(), read->get_rows(), read->get_cols());
-      //Instantiate Game with Maze or Instantiate Maze with Reader
+      Game* game = new Game(maze);
       delete read;
-      delete maze;
    }
    return 0;
 }

@@ -9,6 +9,7 @@
 #include <iostream>
 #include <string>
 #include <cstring>
+
 Maze_Reader::Maze_Reader(const char* file_path, bool read): 
    _file_in(file_path),
    _n_floors(0),
@@ -67,7 +68,6 @@ void Maze_Reader::read(){
 	    return;
 	 }else{
 	    getline(this->_file_in, reader);
-	    std::cout << reader << std::endl;
 	    strncpy(this->_content[i][j], reader.c_str(), reader.size());
 	 }
       }
