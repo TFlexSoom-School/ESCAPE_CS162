@@ -34,6 +34,7 @@ class Game{
       void spawn_instructor(int, int);
       void random_spawn(int, int, int&);
       bool random_spawn_chance(const int&, const int&, const int&);
+      bool valid_space(int,int);
       bool level_up(Maze_Object *); /* Don't forget to set positions of objects to -1 -1 */  
    public:
       Game(Maze* maze);

@@ -124,31 +124,45 @@ void Game::get_command(Maze_Object * it){
 bool Game::get_move(Maze_Person * pPerson, char command){
    switch(command){
       case 'w':
-	 if(this->_maze->valid_space(pPerson->get_row() - 1, pPerson->get_col())){
+	 if(this->valid_space(pPerson->get_row() - 1, pPerson->get_col())){
 	    pPerson->set_location(pPerson->get_row() - 1, pPerson->get_col());
 	    return true;
 	 }
 	 break;
       case 'd':
-	 if(this->_maze->valid_space(pPerson->get_row(), pPerson->get_col() + 1)){
+	 if(this->valid_space(pPerson->get_row(), pPerson->get_col() + 1)){
 	    pPerson->set_location(pPerson->get_row(), pPerson->get_col() + 1);
 	    return true;
 	 }
 	 break;
       case 's':
-	 if(this->_maze->valid_space(pPerson->get_row() + 1, pPerson->get_col())){
+	 if(this->valid_space(pPerson->get_row() + 1, pPerson->get_col())){
 	    pPerson->set_location(pPerson->get_row() + 1, pPerson->get_col());
 	    return true;
 	 }
 	 break;
       case 'a':
-	 if(this->_maze->valid_space(pPerson->get_row(), pPerson->get_col()) - 1){
+	 if(this->valid_space(pPerson->get_row(), pPerson->get_col()) - 1){
 	    pPerson->set_location(pPerson->get_row(), pPerson->get_col() - 1);
 	    return true;
 	 }
    }
    return false;
 }
+
+bool Game::valid_space(int row, int col){
+   if(!this->_maze->valid_space(row, col)){
+      return false;
+   }
+   for(std::vector<Maze_Object *>::iterator it = this->_game_objects.begin(); 
+	 it != this->_game_objects.end(); it ++){
+      if((*it)->get_row() == row && (*it)->get_col() == col && (*it)->can_occupy()){
+	 return false;
+      } 
+   }
+   return true;
+}
+
 void Game::spawn(){
    int number_spawn = 0;
    do{
@@ -223,7 +237,7 @@ void Game::spawn_instructor(int row, int col){
 }
 
 bool Game::level_up(Maze_Object * pObject){
-return true;
+   return true;
 } /* TODO */
 
 Game::Game(Maze* maze): _game_objects(), _maze(maze), _displayed(NULL), _score(0){ 

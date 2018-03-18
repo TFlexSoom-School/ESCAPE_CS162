@@ -43,3 +43,7 @@ int Maze::get_row(){
 int Maze::get_col(){
    this->_levels.at(this->_current_lev)->get_col();
 }
+
+bool Maze::valid_space(int row, int col){
+   return this->_levels.at(this->_current_lev)->at(row,col)->is_occupiable();
+}
