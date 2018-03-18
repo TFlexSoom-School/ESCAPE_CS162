@@ -22,6 +22,7 @@ class Maze{
 
       int get_row();
       int get_col();
+      bool valid_space(int,int);
 
       char ** get_current_lev();
       void level_up();

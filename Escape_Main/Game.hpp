@@ -10,7 +10,7 @@
 
 #include "../Maze/Maze.hpp"
 #include "../Maze_Objects/Maze_Object.hpp"
-
+#include "../Maze_Objects/Maze_People/Maze_Person.hpp"
 class Game{
 
    private:
@@ -22,8 +22,11 @@ class Game{
       void try_loop();
       void game_loop();
       void update_display();
-      void show_skill();
+      bool show_skill();
       void moves();
+      void get_command(Maze_Object*);
+      bool get_move(Maze_Person *, char);
+      void check_adjacency(Maze_Object *);
       void spawn();
       void create_objects();
       void current_lev_display();
@@ -31,7 +34,7 @@ class Game{
       void spawn_instructor(int, int);
       void random_spawn(int, int, int&);
       bool random_spawn_chance(const int&, const int&, const int&);
-      void level_up(); /* Don't forget to set positions of objects to -1 -1 */  
+      bool level_up(Maze_Object *); /* Don't forget to set positions of objects to -1 -1 */  
    public:
       Game(Maze* maze);
       Game(const Game&);
