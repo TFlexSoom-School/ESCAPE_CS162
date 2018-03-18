@@ -59,6 +59,8 @@ int main(int argc, char* argv[]){
       }
       Maze* maze = new Maze(read->get_content(), read->get_n_floors(), read->get_rows(), read->get_cols());
       Game* game = new Game(maze);
+      //delete maze;
+      delete game;
       delete read;
    }
    return 0;

@@ -22,5 +22,6 @@ char Interprid_Student::get_sym(){
 /* Does nothing for there is no interaction between students */
 void Interprid_Student::adjacent(int& score, bool same_space){}
 
-
-
+bool Interprid_Student::random_spawn(){
+   return false;
+}

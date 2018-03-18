@@ -19,12 +19,12 @@ class Interprid_Student: public Maze_Person{
       Interprid_Student(int,int);
       ~Interprid_Student();
 
-      //Return true
       char get_move();
       
       //Derived from Maze_Object... Wait why don't u use multiple inh...
       //shhhhhhh not another word
       char get_sym();
+      bool random_spawn();
       void adjacent(int&, bool same_space = false);
 
 };

@@ -17,7 +17,7 @@ class Game{
       std::vector<Maze_Object*> _game_objects;
       Maze* _maze;
       char ** _displayed;
-      int score;
+      int _score;
 
       void try_loop();
       void game_loop();
@@ -25,7 +25,13 @@ class Game{
       void show_skill();
       void moves();
       void spawn();
-
+      void create_objects();
+      void current_lev_display();
+      void spawn_student(int, int);
+      void spawn_instructor(int, int);
+      void random_spawn(int, int, int&);
+      bool random_spawn_chance(const int&, const int&, const int&);
+      void level_up(); /* Don't forget to set positions of objects to -1 -1 */  
    public:
       Game(Maze* maze);
       Game(const Game&);

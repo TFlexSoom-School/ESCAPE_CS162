@@ -23,3 +23,7 @@ void Instructor::adjacent(int& score, bool same_space){
       //Throw Defeat
    }
 }
+
+bool Instructor::random_spawn(){
+   return false;
+}

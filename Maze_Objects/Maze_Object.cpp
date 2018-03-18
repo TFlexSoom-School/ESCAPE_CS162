@@ -24,3 +24,7 @@ int Maze_Object::get_row(){
 int Maze_Object::get_col(){
    return this->_col;
 }
+
+bool Maze_Object::random_spawn(){
+   return true;
+}

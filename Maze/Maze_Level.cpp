@@ -10,6 +10,7 @@
 #include "../Maze_Locations/Open_Space.hpp"
 #include "../Maze_Locations/Ladder.hpp"
 #include "../Maze_Locations/Student_Spawn.hpp"
+#include "../Maze_Locations/Instructor_Spawn.hpp"
 #include <iostream>
 
 Maze_Level::Maze_Level(char** array, int row, int col){
@@ -51,6 +52,9 @@ Maze_Level::Maze_Level(const Maze_Level& l){
 	       break;
 	    case '^':
 	       vec.push_back(new Ladder());
+	       break;
+	    case '%':
+	       vec.push_back(new Instructor_Spawn());
 	       break;
 	    case ' ':
 	       vec.push_back(new Open_Space());

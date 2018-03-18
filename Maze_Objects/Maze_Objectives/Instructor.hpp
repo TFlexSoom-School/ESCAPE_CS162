@@ -18,6 +18,7 @@ class Instructor: public Maze_Objective{
       Instructor(int, int);
       ~Instructor();
       char get_sym();
+      bool random_spawn();
       void adjacent(int&, bool same_space = false);
 };
 

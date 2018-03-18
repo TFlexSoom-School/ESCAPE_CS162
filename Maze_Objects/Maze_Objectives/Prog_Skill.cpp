@@ -27,3 +27,4 @@ void Prog_Skill::adjacent(int& score, bool same_space){
 void Prog_Skill::reset(){
    _bearing = true;
 }
+
