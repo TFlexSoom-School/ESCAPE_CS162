@@ -8,11 +8,11 @@
 #include "Interprid_Student.hpp"
 
 
-Interprid_Student::Interprid_Student(int row,int col): Maze_Person(row, col){}
+Interprid_Student::Interprid_Student(int row, int col, UI* user): Maze_Person(row, col), _user_interface(user){}
 Interprid_Student::~Interprid_Student(){}
 
 char Interprid_Student::get_move(){
-   return 'w'; //Ping UI for return value   
+   return this->_user_interface->get_char();
 }
 
 char Interprid_Student::get_sym(){

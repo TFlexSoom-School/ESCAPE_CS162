@@ -29,7 +29,7 @@ void Game::create_objects(){
    this->_game_objects.push_back(new Prog_Skill(-1,-1));
    this->_game_objects.push_back(new Prog_Skill(-1,-1));
    this->_game_objects.push_back(new Prog_Skill(-1,-1));
-   this->_game_objects.push_back(new Interprid_Student(-1,-1));
+   this->_game_objects.push_back(new Interprid_Student(-1,-1, this->_user_interface));
    this->_game_objects.push_back(new Instructor(-1,-1));
 }
 
@@ -259,13 +259,25 @@ void Game::level_up(Maze_Person * pPerson){
    }
 } 
 
-Game::Game(Maze* maze): _game_objects(), _maze(maze), _displayed(NULL), _score(0){ 
+Game::Game(Maze* maze, UI* user): 
+   _game_objects(), 
+   _maze(maze), 
+   _displayed(NULL), 
+   _score(0),
+   _user_interface(user)
+{ 
    this->create_objects();
    this->current_lev_display();
    this->spawn();
 }
 
-Game::Game(const Game& l): _game_objects(), _maze(new Maze(*l._maze)), _displayed(NULL), _score(0){
+Game::Game(const Game& l): 
+   _game_objects(), 
+   _maze(new Maze(*l._maze)), 
+   _displayed(NULL), 
+   _score(0),
+   _user_interface(l._user_interface)
+{
    this->create_objects();
    this->spawn();
 }
@@ -278,6 +290,11 @@ Game::~Game(){
       delete [] this->_displayed;
    }
    delete this->_maze;
+
+   for(std::vector<Maze_Object *>::iterator it = this->_game_objects.begin(); 
+	 it != this->_game_objects.end(); it ++){
+      delete (*it);
+   }
 }
 
 void Game::get_display(){} /* TODO */

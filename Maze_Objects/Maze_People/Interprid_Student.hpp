@@ -9,14 +9,15 @@
 #define __INTERPRID_STUDENT_HPP
 
 #include "Maze_Person.hpp"
+#include "../../Escape_Main/UI.hpp"
 
 class Interprid_Student: public Maze_Person{
 
    private:
-   //Private Pointer to HUD
+      UI* _user_interface;
 
    public:
-      Interprid_Student(int,int);
+      Interprid_Student(int,int,UI*);
       ~Interprid_Student();
 
       char get_move();

@@ -12,10 +12,10 @@ DEBUG_EXECUTABLE = d_escape
 
 # Get all cpp files
 SOURCE_FILES := $(wildcard */*.cpp) $(wildcard */*/*.cpp)
-CURSED_SOURCE_FILES := $(wildcard */*.cc) $(wildcard */*/*.cpp)
+CURSED_SOURCE_FILES := $(wildcard */*.cc) $(wildcard */*/*.cc)
 # Get all Objects
 OBJECTS = $(SOURCE_FILES:%.cpp=%.o)
-CURSED_OBJECTS = $(SOURCE_FILES:%.cc=%.o)
+CURSED_OBJECTS = $(CURSED_SOURCE_FILES:%.cc=%.o)
 
 # Compile all Objects
 
@@ -34,11 +34,11 @@ clean:
 	$(CC) $(FLAGS) $(CURSE) -c $< -o $@
 
 
-$(EXECUTABLE) : $(OBJECTS)
-	$(CC) $(FLAGS) $(OBJECTS) -o $@
+$(EXECUTABLE) : $(OBJECTS) $(CURSED_OBJECTS)
+	$(CC) $(FLAGS) $(OBJECTS) $(CURSED_OBJECTS) $(CURSE) -o $@
 
 $(DEBUG_EXECUTABLE) : 
-	$(CC) $(FLAGS) $(CURSE) $(SOURCE_FILES) -g -o $@
+	$(CC) $(FLAGS) $(CURSE) $(SOURCE_FILES) $(CURSED_SOURCE_FILES) -g -o $@
 
 
 

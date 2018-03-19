@@ -42,6 +42,7 @@
 #include "../Maze/Maze.hpp"
 #include "../Maze/Maze_Reader.hpp"
 #include "Game.hpp"
+#include "UI.hpp"
 
 /* Main Method */
 int main(int argc, char* argv[]){
@@ -58,9 +59,11 @@ int main(int argc, char* argv[]){
          return 1;
       }
       Maze* maze = new Maze(read->get_content(), read->get_n_floors(), read->get_rows(), read->get_cols());
-      Game* game = new Game(maze);
-      //delete maze;
+      UI* user = new UI(read->get_rows(), read->get_cols());
+      Game* game = new Game(maze, user);
+      
       delete game;
+      delete user;
       delete read;
    }
    return 0;

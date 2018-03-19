@@ -8,6 +8,7 @@
 #ifndef __GAME_HPP
 #define __GAME_HPP
 
+#include "UI.hpp"
 #include "../Maze/Maze.hpp"
 #include "../Maze_Objects/Maze_Object.hpp"
 #include "../Maze_Objects/Maze_People/Maze_Person.hpp"
@@ -20,6 +21,7 @@ class Game{
       Maze* _maze;
       char ** _displayed;
       int _score;
+      UI * _user_interface;
 
       void try_loop();
       void game_loop();
@@ -39,7 +41,7 @@ class Game{
       bool valid_space(int,int);
       void level_up(Maze_Person *); /* Don't forget to set positions of objects to -1 -1 */  
    public:
-      Game(Maze* maze);
+      Game(Maze*, UI *);
       Game(const Game&);
       ~Game();
       void get_display();
