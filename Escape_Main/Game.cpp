@@ -79,15 +79,26 @@ bool Game::show_skill(){
    return false;
 }
 void Game::moves(){
+   Interprid_Student * pStudent;
    for(std::vector<Maze_Object*>::iterator it = this->_game_objects.begin(); 
 	 it != this->_game_objects.end(); it++){
-      this->get_command(*it);
-      this->check_adjacency(*it);
+      pStudent = dynamic_cast<Interprid_Student *>(*it);
+      if(pStudent != NULL){
+         this->check_adjacency(pStudent);
+         this->get_command(*it);
+         this->check_adjacency(pStudent);	 
+      }else
+         this->get_command(*it);
 
    }
 }
 
-void Game::check_adjacency(Maze_Object *it){} /*TODO*/
+void Game::check_adjacency(Interprid_Student * pStudent){
+   for(std::vector<Maze_Object*>::iterator it = this->_game_objects.begin(); 
+	 it != this->_game_objects.end(); it++){
+      (*it)->adjacent(pStudent->get_row(), pStudent->get_col(), this->_score);
+   }
+}
 
 void Game::get_command(Maze_Object * it){
    Maze_Person* pPerson;
