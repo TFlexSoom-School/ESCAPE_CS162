@@ -5,14 +5,22 @@
  *
  */
 
+#define KEY_W 119
+#define KEY_D 100
+#define KEY_S 115
+#define KEY_A 975
+#define KEY_U 117 
+#define KEY_P 112
+#include <iostream>
 #include "UI.hpp"
 
-UI::UI(int row, int col): _wnd(newwin(row + 1, col, 0,0)), _row(row), _col(col), _score(0){
+UI::UI(int row, int col): _row(row), _col(col), _score(0){
    this->_text = new char*[row];
    for(int i = 0; i < row; i ++){
       this->_text[i] = new char[col];
    }
    initscr();
+   this->_wnd = newwin(row + 2, col, 0, 0);
    noecho();
    //raw();
    keypad(stdscr, FALSE);
@@ -33,7 +41,7 @@ void UI::update(){
    for(int i = 0; i < this->_row; i ++){
       wmove(this->_wnd, i, 0);
       for(int j = 0; j < this->_col; j ++){
-	 waddch(this->_wnd, this->_text[i][j]);	 
+	 waddch(this->_wnd, this->_text[i][j]);
       }
    }
    mvwprintw(this->_wnd, this->_row, this->_col * 3 / 4, "Score %d", this->_score);
@@ -59,25 +67,25 @@ char UI::get_char(){
       c = wgetch(this->_wnd);
       switch(c){
 	 case KEY_UP:
-	 case 'w':
+	 case KEY_W:
 	    return 'w';
 	 case KEY_RIGHT:
-	 case 'd':
+	 case KEY_D:
 	    return 'd';
 	 case KEY_DOWN:
-	 case 's':
+	 case KEY_S:
 	    return 's';
 	 case KEY_LEFT:
-	 case 'a':
+	 case KEY_A:
 	    return 'a';
-	 case 'u':
+	 case KEY_U:
 	    return 'u';
-	 case 'p':
+	 case KEY_P:
 	    return 'p';
 	 default:
 	    mvwprintw(this->_wnd, this->_row, 0, "%d", c);
 	    this->update();
 	    break;
       }
-   }while(true); 
+   }while(true);
 }

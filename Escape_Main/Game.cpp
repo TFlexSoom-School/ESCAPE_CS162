@@ -6,7 +6,10 @@
  */
 
 #include <iostream>
+#include <ctime>
 #include <cstdlib>
+#include <stdexcept>
+#include <vector>
 #include "Game.hpp"
 #include "../Maze_Objects/Maze_Objectives/Maze_Objective.hpp"
 #include "../Maze_Objects/Maze_Objectives/Prog_Skill.hpp"
@@ -37,6 +40,9 @@ void Game::try_loop(){
    do{
       try{
 	 this->game_loop();
+      }catch(std::exception & e){
+         std::cerr << e.what() << std::endl;
+	 break;
       }catch(...){
 	 std::cerr << "Unknown Exception Caught" << std::endl;
 	 break;
@@ -47,9 +53,8 @@ void Game::try_loop(){
 
 void Game::game_loop(){
    do{
-      //Print Maze to UI TODO
-      this->moves();
       this->get_display();
+      this->moves();
    }while(true);
 }
 
@@ -265,10 +270,12 @@ Game::Game(Maze* maze, UI* user):
    _displayed(NULL), 
    _score(0),
    _user_interface(user)
-{ 
+{
+   srand(time(NULL)); 
    this->create_objects();
    this->current_lev_display();
    this->spawn();
+   this->try_loop();
 }
 
 Game::Game(const Game& l): 
@@ -278,8 +285,10 @@ Game::Game(const Game& l):
    _score(0),
    _user_interface(l._user_interface)
 {
+   srand(time(NULL));
    this->create_objects();
    this->spawn();
+   this->try_loop();
 }
 
 Game::~Game(){
@@ -297,6 +306,30 @@ Game::~Game(){
    }
 }
 
-void Game::get_display(){} /* TODO */
+void Game::get_display(){
+   int row = this->_maze->get_row();
+   int col = this->_maze->get_col();
+   char ** display = new char * [row];
+   for(int i = 0; i < row; i ++){
+      display[i] = new char[col];
+      for(int j = 0; j < col; j ++){
+         display[i][j] = this->_displayed[i][j];
+      }
+   }
+
+   for(std::vector<Maze_Object *>::iterator it = this->_game_objects.begin();
+	 it != this->_game_objects.end(); it ++){
+      if((*it)->get_row() != -1)
+	 display[(*it)->get_row()][(*it)->get_col()] = (*it)->get_sym();
+   }
+
+   this->_user_interface->set_text(display);
+   this->_user_interface->set_score(this->_score);
+
+   for(int i = row - 1; i >= 0; i --){
+      delete [] display[i];
+   } 
+   delete [] display;
+}
 
 
