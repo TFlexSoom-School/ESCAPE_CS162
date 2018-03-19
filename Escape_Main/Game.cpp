@@ -78,6 +78,7 @@ bool Game::show_skill(){
    }
    return false;
 }
+
 void Game::moves(){
    Interprid_Student * pStudent;
    for(std::vector<Maze_Object*>::iterator it = this->_game_objects.begin(); 
@@ -121,8 +122,7 @@ void Game::get_command(Maze_Object * it){
 		  return;
 	       break;
 	    case 'u':
-	       if(this->level_up(it))
-		  return;
+	       this->level_up(pPerson);
 	       break;
 	    default:
 	       return;
@@ -247,9 +247,17 @@ void Game::spawn_instructor(int row, int col){
    }
 }
 
-bool Game::level_up(Maze_Object * pObject){
-   return true;
-} /* TODO */
+void Game::level_up(Maze_Person * pPerson){
+   if(this->_displayed[pPerson->get_row()][pPerson->get_col()] == '^'){
+      this->_maze->level_up();
+      this->current_lev_display();
+      for(std::vector<Maze_Object *>::iterator it = this->_game_objects.begin();
+	    it != this->_game_objects.end(); it ++){
+         (*it)->set_location(-1,-1);
+      }
+      this->spawn();
+   }
+} 
 
 Game::Game(Maze* maze): _game_objects(), _maze(maze), _displayed(NULL), _score(0){ 
    this->create_objects();
