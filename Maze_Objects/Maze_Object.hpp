@@ -20,6 +20,7 @@ class Maze_Object{
       void set_location(int, int);
       int get_row();
       int get_col();
+      void adjacent_check(int, int, int&);
       virtual bool random_spawn();
       virtual bool can_occupy() =0;
       virtual char get_sym() =0;

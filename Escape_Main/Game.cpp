@@ -96,7 +96,7 @@ void Game::moves(){
 void Game::check_adjacency(Interprid_Student * pStudent){
    for(std::vector<Maze_Object*>::iterator it = this->_game_objects.begin(); 
 	 it != this->_game_objects.end(); it++){
-      (*it)->adjacent(pStudent->get_row(), pStudent->get_col(), this->_score);
+      (*it)->adjacent_check(pStudent->get_row(), pStudent->get_col(), this->_score);
    }
 }
 

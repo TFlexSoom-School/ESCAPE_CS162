@@ -11,6 +11,8 @@
 #include "../Maze/Maze.hpp"
 #include "../Maze_Objects/Maze_Object.hpp"
 #include "../Maze_Objects/Maze_People/Maze_Person.hpp"
+#include "../Maze_Objects/Maze_People/Interprid_Student.hpp"
+
 class Game{
 
    private:
@@ -26,7 +28,7 @@ class Game{
       void moves();
       void get_command(Maze_Object*);
       bool get_move(Maze_Person *, char);
-      void check_adjacency(Maze_Object *);
+      void check_adjacency(Interprid_Student *);
       void spawn();
       void create_objects();
       void current_lev_display();
