@@ -24,6 +24,7 @@ class TA: public Maze_Person{
       TA(int, int);
       ~TA();
       void shock();
+      virtual void reset();
       virtual char get_move();
       
       //Derived from Maze_Object... Wait why don't u use multiple inh...

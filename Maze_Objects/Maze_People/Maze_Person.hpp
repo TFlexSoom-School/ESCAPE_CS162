@@ -17,6 +17,7 @@ class Maze_Person: public Maze_Object{
 
       //Return true
       bool can_occupy();
+      virtual void reset();
       virtual char get_move() = 0;
       
       //Derived from Maze_Object... Wait why don't u use multiple inh...

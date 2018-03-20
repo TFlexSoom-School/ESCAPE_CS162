@@ -12,3 +12,4 @@ Maze_Person::~Maze_Person(){}
 bool Maze_Person::can_occupy(){
    return true;
 }
+void Maze_Person::reset() {}

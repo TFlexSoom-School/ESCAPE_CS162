@@ -23,6 +23,7 @@ class Maze_Object{
       void adjacent_check(int, int, int&);
       virtual bool random_spawn();
       virtual bool can_occupy() =0;
+      virtual void reset() =0;
       virtual char get_sym() =0;
       virtual void adjacent(int&, bool same_space = false) =0;
 

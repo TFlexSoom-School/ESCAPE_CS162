@@ -18,7 +18,7 @@ char Prog_Skill::get_sym(){
    return ' ';
 }
 void Prog_Skill::adjacent(int& score, bool same_space){
-   if(_bearing){
+   if(same_space && _bearing){
       score ++;
       this->_bearing = false;
    }

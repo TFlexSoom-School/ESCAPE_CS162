@@ -33,7 +33,7 @@ char TA::get_move(){
 	 case 3:
 	    return 'a';
 	    break;
-        default:
+	 default:
 	    return 'w';
       }   
    }
@@ -44,6 +44,10 @@ char TA::get_sym(){
 }
 
 void TA::adjacent(int& score, bool same_space){
-   score = 0;
-   //The TA stole ur programming skills!!!
+   if(this->_shocked <= TA_constants::unshocked)
+      score = 0;
+}
+
+void  TA::reset(){
+   this->_shocked = TA_constants::unshocked;
 }

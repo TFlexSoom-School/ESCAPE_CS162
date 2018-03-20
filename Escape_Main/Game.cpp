@@ -79,6 +79,7 @@ bool Game::show_skill(){
 	    pta->shock();
 	 }
       }
+      this->_score --;
       return true;
    }
    return false;

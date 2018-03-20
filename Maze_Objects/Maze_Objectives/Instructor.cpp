@@ -28,3 +28,4 @@ void Instructor::adjacent(int& score, bool same_space){
 bool Instructor::random_spawn(){
    return false;
 }
+
