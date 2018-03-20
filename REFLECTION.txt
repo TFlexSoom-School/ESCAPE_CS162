@@ -1,0 +1,66 @@
+Tristan Hilbert
+3/19/18
+Reflection Document
+
+<< Want to know how to run the game? checkout Escape_Main/Escape_Main.cpp
+       for how to run and use the application >>
+
+The design was pretty solid. I am semi-glad that we were
+forced to design an object heirarchy in recitation because it
+made getting started easier. I enjoyed being able to reference
+it while creating all the header files. The downside however was
+that due to the order of creating the classes I found out later
+that the composition of my objects was not ideal for my uses. I
+would have rathered a 3 layered grid system which would be easy for
+detection of collision and what is put out to the UI. Overall however
+I was able to display my ability to adequately create a heirarchy
+for the Game people versus the Game objectives which do and do not move.
+I could use them both polymorphically but still be able to cast into
+either one given the necessity. It allowed for slightly cleaner code
+in the long run and in all honesty I can't complain for how it all 
+turned out.
+
+To test I used a lot of gdb at first to test what was getting hit when
+but after getting the UI working it was harder to use due to the window
+being created. I progressively went through the readme to get the
+stipulations of the assignment. I would try each feature on after another
+and if the features requirements whether it was a button press or 
+adjacency necessity were met and the effect did not occur I would look
+into it. Thankfully the basic controls did not fail too badly so
+this worked out quite well. The only thing I had a harder time
+controlling were the random functionality. That took more time because
+the effect was not always displayed. I still powered through though
+even partaking in a little rubber duck debugging when necessary.
+
+One bug in paticular I hit was the inability to change levels... or so
+I thought. I was looking through the code very confused for it should
+work but then I realized after attempting to move after climbing the ladder
+it was then that the level would change. I then realized that I forgot
+to update the UI after the level change which is due to a flow change in
+order to prevent movement before the player can get up a floor from the TAs.
+
+I also hit another problem with valgrind finding out that it did not like the
+reachable memory that could be obtained by using the nCurses init function
+It was unreachable in my code though even in a debugged executable which
+confused the heck out of valgrind (and me). I eventually read up on it
+in the GNU forums and found out about the memory flag issue. I quickly
+asked Dr. Hess about it on Piazza and soon everything was just fine.
+
+Resources I used:
+>> Cplusplus.com (A lot because I can never remember how to extend an
+      std::exception)
+>> Piazza was also helpful because it always felt nice to see other
+      developers in the same boat as I was, working hard.
+>> The Vim wiki also helped for a couple vimrc issues.
+
+>> Valgrind was a huge help especially after finding out its
+      specificity when used with a debug ready exectuable
+
+>> The GNU make documentation also helped me make a very multi-purposed
+      makefile which I would rarely have to change as I went through 
+      the project which is amazing.
+
+>> Finally MOBAxTerm is still an amazing application and I am glad I have
+      had so much experience with it. I am really enjoying using terminals.
+
+
