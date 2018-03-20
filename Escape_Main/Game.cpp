@@ -131,6 +131,8 @@ void Game::get_command(Maze_Object * it){
 	    case 'u':
 	       this->level_up(pPerson);
 	       break;
+	    case 0:
+	       return;
 	    default:
 	       return;
 	 }
@@ -164,6 +166,7 @@ bool Game::get_move(Maze_Person * pPerson, char command){
 	    this->set_location(pPerson->get_row(), pPerson->get_col() - 1, pPerson);
 	    return true;
 	 }
+	 break;
    }
    return false;
 }
