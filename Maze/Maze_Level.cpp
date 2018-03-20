@@ -30,6 +30,9 @@ Maze_Level::Maze_Level(char** array, int row, int col){
 	    case ' ':
 	       vec.push_back(new Open_Space());
 	       break;
+	    case '%':
+	       vec.push_back(new Instructor_Spawn());
+	       break;
 	    default:
 	       vec.push_back(new Open_Space());
 	       break;

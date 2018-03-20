@@ -10,15 +10,14 @@
 #include <cstdlib>
 #include <stdexcept>
 #include <vector>
+#include <thread>
+#include <chrono>
 #include "Game.hpp"
+
 #include "../Maze_Objects/Maze_Objectives/Maze_Objective.hpp"
 #include "../Maze_Objects/Maze_Objectives/Prog_Skill.hpp"
 #include "../Maze_Objects/Maze_Objectives/Instructor.hpp"
-
-#include "../Maze_Objects/Maze_People/Maze_Person.hpp"
 #include "../Maze_Objects/Maze_People/TA.hpp"
-#include "../Maze_Objects/Maze_People/Interprid_Student.hpp"
-
 #include "../Exceptions/Victory_Exception.hpp"
 #include "../Exceptions/Defeat_Exception.hpp"
 
@@ -39,8 +38,12 @@ void Game::try_loop(){
 	 this->game_loop();
       }catch(Victory_Exception & e){
 	 this->_user_interface->victory(e.what());	   
+	 std::this_thread::sleep_for (std::chrono::seconds(2));
+	 break;
       }catch(Defeat_Exception & e){
-	 this->_user_interface->defeat(e.what());	   
+	 this->_user_interface->defeat(e.what());
+	 std::this_thread::sleep_for (std::chrono::seconds(2));
+	 this->restart(); 
       }catch(std::exception & e){
 	 std::cerr << e.what() << std::endl;
 	 break;
@@ -356,4 +359,16 @@ void Game::set_location(int row, int col, Maze_Object * pObject){
       if(row != -1 && col != -1)
          this->_maze->at(row,col)->contains_person_switch();
    }
+}
+
+void Game::restart(){
+   for(std::vector<Maze_Object *>::iterator it = this->_game_objects.begin();
+	 it != this->_game_objects.end(); it ++){
+      this->set_location(-1, -1, *it);
+      (*it)->reset();
+   }
+   this->_maze->restart();
+   this->current_lev_display();
+   this->spawn();
+   this->get_display();
 }

@@ -38,6 +38,7 @@ UI::~UI(){
 }
 
 void UI::update(){
+   werase(this->_wnd);
    for(int i = 0; i < this->_row; i ++){
       wmove(this->_wnd, i, 0);
       for(int j = 0; j < this->_col; j ++){
@@ -66,6 +67,7 @@ char UI::get_char(){
    do{
       c = wgetch(this->_wnd);
       mvwprintw(this->_wnd, this->_row + 1, 0, "%d", c);
+      wrefresh(this->_wnd);
       this->update();
       switch(c){
 	 case KEY_UP:
@@ -92,8 +94,10 @@ char UI::get_char(){
 
 void UI::victory(const char* msg){
    mvwprintw(this->_wnd, this->_row, 0, msg);
+   wrefresh(this->_wnd);
 }
 
 void UI::defeat(const char* msg){
    mvwprintw(this->_wnd, this->_row, 0, msg);
+   wrefresh(this->_wnd);
 }

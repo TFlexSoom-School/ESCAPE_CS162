@@ -42,6 +42,7 @@ class Game{
       void level_up(Maze_Person *); /* Don't forget to set positions of objects to -1 -1 */  
       void set_location(int, int, Maze_Object*);
       void set_location(int, int, int);
+      void restart();
    public:
       Game(Maze*, UI *);
       Game(const Game&);

@@ -29,6 +29,7 @@ class Maze{
 
       char ** get_current_lev();
       void level_up();
+      void restart();
 };
 
 #endif

@@ -56,3 +56,7 @@ bool Maze::valid_space(int row, int col){
 Maze_Location* Maze::at(int row, int col){
    return this->_levels.at(this->_current_lev)->at(row,col);
 }
+
+void Maze::restart(){
+   this->_current_lev = 0;
+}
