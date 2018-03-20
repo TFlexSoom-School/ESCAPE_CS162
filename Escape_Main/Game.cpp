@@ -19,20 +19,16 @@
 #include "../Maze_Objects/Maze_People/TA.hpp"
 #include "../Maze_Objects/Maze_People/Interprid_Student.hpp"
 
-/*
-   std::vector<Maze_Object*> _game_objects;
-   Maze* _maze;
-   char ** _displayed;
-   int score;
-   */
+#include "../Exceptions/Victory_Exception.hpp"
+#include "../Exceptions/Defeat_Exception.hpp"
 
 void Game::create_objects(){
-   this->_game_objects.push_back(new TA(-1,-1));
-   this->_game_objects.push_back(new TA(-1,-1));
    this->_game_objects.push_back(new Prog_Skill(-1,-1));
    this->_game_objects.push_back(new Prog_Skill(-1,-1));
    this->_game_objects.push_back(new Prog_Skill(-1,-1));
    this->_game_objects.push_back(new Interprid_Student(-1,-1, this->_user_interface));
+   this->_game_objects.push_back(new TA(-1,-1));
+   this->_game_objects.push_back(new TA(-1,-1));
    this->_game_objects.push_back(new Instructor(-1,-1));
 }
 
@@ -40,6 +36,10 @@ void Game::try_loop(){
    do{
       try{
 	 this->game_loop();
+      }catch(Victory_Exception & e){
+        this->_user_interface->victory(e.what());	   
+      }catch(Defeat_Exception & e){
+        this->_user_interface->defeat(e.what());	   
       }catch(std::exception & e){
          std::cerr << e.what() << std::endl;
 	 break;
@@ -261,6 +261,7 @@ void Game::level_up(Maze_Person * pPerson){
          (*it)->set_location(-1,-1);
       }
       this->spawn();
+      this->get_display();
    }
 } 
 

@@ -8,7 +8,7 @@
 #define KEY_W 119
 #define KEY_D 100
 #define KEY_S 115
-#define KEY_A 975
+#define KEY_A 97
 #define KEY_U 117 
 #define KEY_P 112
 #include <iostream>
@@ -44,7 +44,7 @@ void UI::update(){
 	 waddch(this->_wnd, this->_text[i][j]);
       }
    }
-   mvwprintw(this->_wnd, this->_row, this->_col * 3 / 4, "Score %d", this->_score);
+   mvwprintw(this->_wnd, this->_row, this->_col, "Score %d", this->_score);
    wrefresh(this->_wnd);   
 }
 void UI::set_text(char ** array){
@@ -65,6 +65,8 @@ char UI::get_char(){
    int c;
    do{
       c = wgetch(this->_wnd);
+      mvwprintw(this->_wnd, this->_row + 1, 0, "%d", c);
+      this->update();
       switch(c){
 	 case KEY_UP:
 	 case KEY_W:
@@ -83,9 +85,15 @@ char UI::get_char(){
 	 case KEY_P:
 	    return 'p';
 	 default:
-	    mvwprintw(this->_wnd, this->_row, 0, "%d", c);
-	    this->update();
 	    break;
       }
    }while(true);
+}
+
+void UI::victory(const char* msg){
+   mvwprintw(this->_wnd, this->_row, 0, msg);
+}
+
+void UI::defeat(const char* msg){
+   mvwprintw(this->_wnd, this->_row, 0, msg);
 }

@@ -28,6 +28,8 @@ class UI{
       void set_text(char **);
       void set_score(int);
       char get_char();
+      void victory(const char*);
+      void defeat(const char*);
 };
 
 #endif

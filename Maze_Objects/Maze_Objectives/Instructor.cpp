@@ -6,7 +6,8 @@
  */
 
 #include "Instructor.hpp"
-
+#include "../../Exceptions/Victory_Exception.hpp"
+#include "../../Exceptions/Defeat_Exception.hpp"
 
 Instructor::Instructor(int row, int col): Maze_Objective(row, col){}
 
@@ -18,9 +19,9 @@ char Instructor::get_sym(){
 
 void Instructor::adjacent(int& score, bool same_space){
    if(score >= 3){
-      //Throw Victory
+      throw Victory_Exception();
    }else{
-      //Throw Defeat
+      throw Defeat_Exception();
    }
 }
 
