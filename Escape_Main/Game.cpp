@@ -23,6 +23,7 @@
 #include "../Exceptions/Defeat_Exception.hpp"
 
 void Game::create_objects(){
+   /* Establishes Z-Order */
    this->_game_objects.push_back(new Prog_Skill(-1,-1));
    this->_game_objects.push_back(new Prog_Skill(-1,-1));
    this->_game_objects.push_back(new Prog_Skill(-1,-1));
@@ -37,11 +38,11 @@ void Game::try_loop(){
       try{
 	 this->game_loop();
       }catch(Victory_Exception & e){
-        this->_user_interface->victory(e.what());	   
+	 this->_user_interface->victory(e.what());	   
       }catch(Defeat_Exception & e){
-        this->_user_interface->defeat(e.what());	   
+	 this->_user_interface->defeat(e.what());	   
       }catch(std::exception & e){
-         std::cerr << e.what() << std::endl;
+	 std::cerr << e.what() << std::endl;
 	 break;
       }catch(...){
 	 std::cerr << "Unknown Exception Caught" << std::endl;
@@ -91,11 +92,11 @@ void Game::moves(){
 	 it != this->_game_objects.end(); it++){
       pStudent = dynamic_cast<Interprid_Student *>(*it);
       if(pStudent != NULL){
-         this->check_adjacency(pStudent);
-         this->get_command(*it);
-         this->check_adjacency(pStudent);	 
+	 this->check_adjacency(pStudent);
+	 this->get_command(*it);
+	 this->check_adjacency(pStudent);	 
       }else
-         this->get_command(*it);
+	 this->get_command(*it);
 
    }
 }
@@ -259,7 +260,7 @@ void Game::level_up(Maze_Person * pPerson){
       this->current_lev_display();
       for(std::vector<Maze_Object *>::iterator it = this->_game_objects.begin();
 	    it != this->_game_objects.end(); it ++){
-         (*it)->set_location(-1,-1);
+	 (*it)->set_location(-1,-1);
       }
       this->spawn();
       this->get_display();
@@ -315,7 +316,7 @@ void Game::get_display(){
    for(int i = 0; i < row; i ++){
       display[i] = new char[col];
       for(int j = 0; j < col; j ++){
-         display[i][j] = this->_displayed[i][j];
+	 display[i][j] = this->_displayed[i][j];
       }
    }
 

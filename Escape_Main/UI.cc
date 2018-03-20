@@ -44,7 +44,7 @@ void UI::update(){
 	 waddch(this->_wnd, this->_text[i][j]);
       }
    }
-   mvwprintw(this->_wnd, this->_row, this->_col, "Score %d", this->_score);
+   mvwprintw(this->_wnd, this->_row, 0, "Score %d", this->_score);
    wrefresh(this->_wnd);   
 }
 void UI::set_text(char ** array){
