@@ -17,6 +17,7 @@ class Wall: public Maze_Location{
       ~Wall();
       bool is_occupiable();
       virtual char get_sym();
+      virtual void contains_person_switch();
 };
 
 #endif

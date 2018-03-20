@@ -19,7 +19,7 @@ class Open_Space: public Maze_Location{
       virtual ~Open_Space();
       bool is_occupiable();
       virtual char get_sym();
-      void contains_person_switch();
+      virtual void contains_person_switch();
 };
 
 #endif

@@ -47,3 +47,7 @@ int Maze::get_col(){
 bool Maze::valid_space(int row, int col){
    return this->_levels.at(this->_current_lev)->at(row,col)->is_occupiable();
 }
+
+Maze_Location* Maze::at(int row, int col){
+   return this->_levels.at(this->_current_lev)->at(row,col);
+}

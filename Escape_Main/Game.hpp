@@ -40,6 +40,8 @@ class Game{
       bool random_spawn_chance(const int&, const int&, const int&);
       bool valid_space(int,int);
       void level_up(Maze_Person *); /* Don't forget to set positions of objects to -1 -1 */  
+      void set_location(int, int, Maze_Object*);
+      void set_location(int, int, int);
    public:
       Game(Maze*, UI *);
       Game(const Game&);

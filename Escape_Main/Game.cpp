@@ -143,25 +143,25 @@ bool Game::get_move(Maze_Person * pPerson, char command){
    switch(command){
       case 'w':
 	 if(this->valid_space(pPerson->get_row() - 1, pPerson->get_col())){
-	    pPerson->set_location(pPerson->get_row() - 1, pPerson->get_col());
+	    this->set_location(pPerson->get_row() - 1, pPerson->get_col(), pPerson);
 	    return true;
 	 }
 	 break;
       case 'd':
 	 if(this->valid_space(pPerson->get_row(), pPerson->get_col() + 1)){
-	    pPerson->set_location(pPerson->get_row(), pPerson->get_col() + 1);
+	    this->set_location(pPerson->get_row(), pPerson->get_col() + 1, pPerson);
 	    return true;
 	 }
 	 break;
       case 's':
 	 if(this->valid_space(pPerson->get_row() + 1, pPerson->get_col())){
-	    pPerson->set_location(pPerson->get_row() + 1, pPerson->get_col());
+	    this->set_location(pPerson->get_row() + 1, pPerson->get_col(), pPerson);
 	    return true;
 	 }
 	 break;
       case 'a':
 	 if(this->valid_space(pPerson->get_row(), pPerson->get_col()) - 1){
-	    pPerson->set_location(pPerson->get_row(), pPerson->get_col() - 1);
+	    this->set_location(pPerson->get_row(), pPerson->get_col() - 1, pPerson);
 	    return true;
 	 }
    }
@@ -213,12 +213,13 @@ void Game::spawn(){
    }while(true);
 }
 
-void Game::random_spawn(int i, int j, int& number_spawn){
-   if(this->random_spawn_chance(i, j, number_spawn)){
+void Game::random_spawn(int row, int col, int& number_spawn){
+   if(this->random_spawn_chance(row, col, number_spawn)){
       for(int i = 0; i < this->_game_objects.size(); i ++){
 	 if(_game_objects.at(i)->random_spawn() && _game_objects.at(i)->get_row() == -1){
-	    _game_objects.at(i)->set_location(i,j);
+	    this->set_location(row,col,i);
 	    number_spawn ++;
+	    break;
 	 }else if(!_game_objects.at(i)->random_spawn()){
 	    number_spawn ++;
 	 }
@@ -229,7 +230,7 @@ void Game::random_spawn(int i, int j, int& number_spawn){
 bool Game::random_spawn_chance(const int& row, const int& col,const int& number_spawn){
    int modulus = row * this->_maze->get_col();
    modulus = (this->_maze->get_row() * this->_maze->get_col()) - modulus;
-   return (rand() % modulus <= this->_game_objects.size() - number_spawn * 2); /* Chance increases as spots left decreases */
+   return (rand() % modulus <= this->_game_objects.size() - number_spawn); /* Chance increases as spots left decreases */
 }
 
 void Game::spawn_student(int row, int col){
@@ -238,7 +239,7 @@ void Game::spawn_student(int row, int col){
 	 it != this->_game_objects.end(); it ++){
       pStudent = dynamic_cast<Interprid_Student*>(*it);
       if(pStudent != NULL){
-	 pStudent->set_location(row,col);
+	 this->set_location(row, col, pStudent);
       }
    }
 }
@@ -249,7 +250,7 @@ void Game::spawn_instructor(int row, int col){
 	 it != this->_game_objects.end(); it ++){
       pInstructor = dynamic_cast<Instructor*>(*it);
       if(pInstructor != NULL){
-	 pInstructor->set_location(row,col);
+	 this->set_location(row, col, pInstructor);
       }
    }
 }
@@ -260,7 +261,7 @@ void Game::level_up(Maze_Person * pPerson){
       this->current_lev_display();
       for(std::vector<Maze_Object *>::iterator it = this->_game_objects.begin();
 	    it != this->_game_objects.end(); it ++){
-	 (*it)->set_location(-1,-1);
+	 this->set_location(-1, -1, *it);
       }
       this->spawn();
       this->get_display();
@@ -335,4 +336,26 @@ void Game::get_display(){
    delete [] display;
 }
 
+void Game::set_location(int row, int col, int index){
+   int old_row = this->_game_objects.at(index)->get_row();
+   int old_col = this->_game_objects.at(index)->get_col();
+   this->_game_objects.at(index)->set_location(row, col);
+   if(this->_game_objects.at(index)->can_occupy()){
+      if(old_row != -1 && old_col != -1)
+      this->_maze->at(old_row, old_col)->contains_person_switch();
+      if(row != -1 && col != -1)
+         this->_maze->at(row,col)->contains_person_switch();
+   }
+}
 
+void Game::set_location(int row, int col, Maze_Object * pObject){
+   int old_row = pObject->get_row();
+   int old_col = pObject->get_col();
+   pObject->set_location(row, col);
+   if(pObject->can_occupy()){
+      if(old_row != -1 && old_col != -1)
+      this->_maze->at(old_row, old_col)->contains_person_switch();
+      if(row != -1 && col != -1)
+         this->_maze->at(row,col)->contains_person_switch();
+   }
+}

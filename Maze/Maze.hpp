@@ -9,6 +9,7 @@
 #define __MAZE_HPP
 
 #include "Maze_Level.hpp"
+#include "../Maze_Locations/Maze_Location.hpp"
 
 class Maze{
 
@@ -19,6 +20,8 @@ class Maze{
       Maze(char ***, int, int, int);
       Maze(const Maze&);
       ~Maze();
+
+      Maze_Location* at(int, int);
 
       int get_row();
       int get_col();

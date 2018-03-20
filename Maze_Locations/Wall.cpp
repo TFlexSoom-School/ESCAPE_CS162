@@ -17,3 +17,5 @@ bool Wall::is_occupiable(){
 char Wall::get_sym(){
    return '#';
 }
+
+void Wall::contains_person_switch(){}

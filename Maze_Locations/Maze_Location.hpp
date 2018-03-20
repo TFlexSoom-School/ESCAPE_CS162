@@ -18,6 +18,8 @@ class Maze_Location{
 
       //This will identify the charater used for printing this room
       virtual char get_sym() =0;
+
+      virtual void contains_person_switch() =0;
 };
 
 #endif
