@@ -386,7 +386,7 @@ void Game::spawn_student(int row, int col){
  * post: Instructor objects will have their location 
  *       set to arguments
  */
- *
+ 
 void Game::spawn_instructor(int row, int col){
    Instructor* pInstructor;
    for(std::vector<Maze_Object *>::iterator it = this->_game_objects.begin(); 
