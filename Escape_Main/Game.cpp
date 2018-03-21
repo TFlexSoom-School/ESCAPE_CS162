@@ -21,6 +21,58 @@
 #include "../Exceptions/Victory_Exception.hpp"
 #include "../Exceptions/Defeat_Exception.hpp"
 
+/* Constructor */
+/* Both Arguments should be previously constructed */
+Game::Game(Maze* maze, UI* user): 
+   _game_objects(), 
+   _maze(maze), 
+   _displayed(NULL), 
+   _score(0),
+   _user_interface(user)
+{
+   srand(time(NULL)); 
+   this->create_objects();
+   this->current_lev_display();
+   this->spawn();
+   this->try_loop();
+}
+
+/* Copy Constructor */
+Game::Game(const Game& l): 
+   _game_objects(), 
+   _maze(new Maze(*l._maze)), 
+   _displayed(NULL), 
+   _score(0),
+   _user_interface(l._user_interface)
+{
+   srand(time(NULL));
+   this->create_objects();
+   this->spawn();
+   this->try_loop();
+}
+
+/* Deconstructor */
+Game::~Game(){
+   if(this->_displayed != NULL){
+      for(int i = this->_maze->get_row() - 1; i >= 0; i --){
+	 delete [] this->_displayed[i];
+      }
+      delete [] this->_displayed;
+   }
+   delete this->_maze;
+
+   for(std::vector<Maze_Object *>::iterator it = this->_game_objects.begin(); 
+	 it != this->_game_objects.end(); it ++){
+      delete (*it);
+   }
+}
+
+/*
+ * create_objects()
+ * creates the objects for the game to be used until deconstruction
+ * post: Objects will be created and pushed back in
+ *          into the vector based on the Z-Order of the display
+ */
 void Game::create_objects(){
    /* Establishes Z-Order */
    this->_game_objects.push_back(new Prog_Skill(-1,-1));
@@ -32,6 +84,10 @@ void Game::create_objects(){
    this->_game_objects.push_back(new Instructor(-1,-1));
 }
 
+/*
+ * try_loop()
+ * A code segment to catch all thrown exceptions for game changes
+ */
 void Game::try_loop(){
    do{
       try{
@@ -55,6 +111,11 @@ void Game::try_loop(){
    }while(true);
 }
 
+/*
+ * game_loop()
+ * the actual game loop for the game object
+ * may throw exceptions
+ */
 void Game::game_loop(){
    do{
       this->get_display();
@@ -62,6 +123,11 @@ void Game::game_loop(){
    }while(true);
 }
 
+/*
+ * current_lev_display()
+ * Updates display variable by extracting it from the maze object
+ * post: displayed may be deleted and renewed
+ */
 void Game::current_lev_display(){
    if(this->_displayed != NULL){
       for(int i = this->_maze->get_row() - 1; i >= 0; i --){
@@ -73,6 +139,12 @@ void Game::current_lev_display(){
    this->_displayed = this->_maze->get_current_lev();
 }
 
+/* 
+ * show_skill()
+ * shocks all the TAs in the game
+ * post: all TAs will be "shocked"
+ * return: whether the player can shock the TAs
+ */
 bool Game::show_skill(){
    if(this->_score > 0){
       TA* pta;
@@ -89,6 +161,12 @@ bool Game::show_skill(){
    return false;
 }
 
+/*
+ * moves()
+ * represents a turn in the game. this occurs each round
+ * post: display may be changed along with certain _game_objects
+ *
+ */
 void Game::moves(){
    Interprid_Student * pStudent;
    for(std::vector<Maze_Object*>::iterator it = this->_game_objects.begin(); 
@@ -104,6 +182,15 @@ void Game::moves(){
    }
 }
 
+/* 
+ * check_adjacency(Interprid_Student*)
+ * gives the row and collumn of the student to each object to let
+ *    the object use its game functionality
+ * param: pointer to the student object within the game.
+ * pre: pStudent is new upped
+ * post: score may be changed
+ *
+ */
 void Game::check_adjacency(Interprid_Student * pStudent){
    for(std::vector<Maze_Object*>::iterator it = this->_game_objects.begin(); 
 	 it != this->_game_objects.end(); it++){
@@ -111,6 +198,13 @@ void Game::check_adjacency(Interprid_Student * pStudent){
    }
 }
 
+/*
+ * get_command(Maze_Object *)
+ * Checks to see it the object has the right to
+ *    establish itself in a new place
+ * pre: Maze_Object is defined with an object on the heap
+ * post: Maze_Object may have a new location
+ */
 void Game::get_command(Maze_Object * it){
    Maze_Person* pPerson;
    char command;
@@ -144,6 +238,14 @@ void Game::get_command(Maze_Object * it){
 
 }
 
+/*
+ * get_move(Maze_Person *, char)
+ * returns whether this person wants to move to
+ *    an actual valid space and moves them there if so
+ * pre: pPerson is a new upped object and command is wasd
+ * post: pPerson may have a new location as delegated aswell to the maze
+ * return: if pPerson moved
+ */
 bool Game::get_move(Maze_Person * pPerson, char command){
    switch(command){
       case 'w':
@@ -174,6 +276,12 @@ bool Game::get_move(Maze_Person * pPerson, char command){
    return false;
 }
 
+/*
+ * valid_space(int,int)
+ * checks if the given space based on index is a valid
+ *    new position for a given person
+ * return: the given space is open and unnoccupied
+ */
 bool Game::valid_space(int row, int col){
    if(this->_maze->valid_space(row, col)){
       return true;
@@ -181,6 +289,13 @@ bool Game::valid_space(int row, int col){
    return false;
 }
 
+/*
+ * spawn()
+ * sets the locations of all the game_objects based
+ *    on set character spawn points or random spawning
+ * post: Game objects will have new set locations
+ *
+ */
 void Game::spawn(){
    int number_spawn = 0;
    do{
@@ -213,6 +328,12 @@ void Game::spawn(){
    }while(true);
 }
 
+/*
+ * random_spawn(int, int, int)
+ * delegated for random spawning based on given integer info
+ * param: row, col of spawning and integer of objects left to spawn
+ * post: An object may or may not spawn at the given space
+ */
 void Game::random_spawn(int row, int col, int& number_spawn){
    if(this->random_spawn_chance(row, col, number_spawn)){
       for(int i = 0; i < this->_game_objects.size(); i ++){
@@ -227,12 +348,26 @@ void Game::random_spawn(int row, int col, int& number_spawn){
    }
 }
 
+/*
+ * random_spawn_chance(int,int,int)
+ * decides if the an object should spawn based on the given constraints
+ * returns: based on superhuman mathematical models if spawning should occur
+ *
+ */
+
 bool Game::random_spawn_chance(const int& row, const int& col,const int& number_spawn){
    int modulus = row * this->_maze->get_col();
    modulus = (this->_maze->get_row() * this->_maze->get_col()) - modulus;
    return (rand() % modulus <= this->_game_objects.size() - number_spawn); /* Chance increases as spots left decreases */
 }
 
+/*
+ * spawn_student(int, int)
+ * spawns the student at the given row and col
+ * param: row and col of spawn
+ * post: Interprid_Student objects will have their location
+ *          set to arguments
+ */
 void Game::spawn_student(int row, int col){
    Interprid_Student* pStudent;
    for(std::vector<Maze_Object *>::iterator it = this->_game_objects.begin(); 
@@ -244,6 +379,14 @@ void Game::spawn_student(int row, int col){
    }
 }
 
+/*
+ * spawn_instructor(int,int)
+ * spawns the Instructor at the given row and col
+ * param: row and col of spawn
+ * post: Instructor objects will have their location 
+ *       set to arguments
+ */
+ *
 void Game::spawn_instructor(int row, int col){
    Instructor* pInstructor;
    for(std::vector<Maze_Object *>::iterator it = this->_game_objects.begin(); 
@@ -255,6 +398,15 @@ void Game::spawn_instructor(int row, int col){
    }
 }
 
+/*
+ * level_up(Maze_person *)
+ * param: argument of someone trying to up the level
+ * pre: pPerson is an interprid student preferablly
+ * post: Maze will be leveled and maze will have a new display
+ *          depending on if level up was valid. Essentially the
+ *          game starts anew with uninitialized locations so
+ *          spawning must occur
+ */
 void Game::level_up(Maze_Person * pPerson){
    if(this->_displayed[pPerson->get_row()][pPerson->get_col()] == '^'){
       for(std::vector<Maze_Object *>::iterator it = this->_game_objects.begin();
@@ -269,48 +421,14 @@ void Game::level_up(Maze_Person * pPerson){
    }
 } 
 
-Game::Game(Maze* maze, UI* user): 
-   _game_objects(), 
-   _maze(maze), 
-   _displayed(NULL), 
-   _score(0),
-   _user_interface(user)
-{
-   srand(time(NULL)); 
-   this->create_objects();
-   this->current_lev_display();
-   this->spawn();
-   this->try_loop();
-}
-
-Game::Game(const Game& l): 
-   _game_objects(), 
-   _maze(new Maze(*l._maze)), 
-   _displayed(NULL), 
-   _score(0),
-   _user_interface(l._user_interface)
-{
-   srand(time(NULL));
-   this->create_objects();
-   this->spawn();
-   this->try_loop();
-}
-
-Game::~Game(){
-   if(this->_displayed != NULL){
-      for(int i = this->_maze->get_row() - 1; i >= 0; i --){
-	 delete [] this->_displayed[i];
-      }
-      delete [] this->_displayed;
-   }
-   delete this->_maze;
-
-   for(std::vector<Maze_Object *>::iterator it = this->_game_objects.begin(); 
-	 it != this->_game_objects.end(); it ++){
-      delete (*it);
-   }
-}
-
+/*
+ * get_display()
+ * this horribly named function allocates
+ *    a char matrix for the display of the board
+ *    then sends it to the UI.
+ * post: a new array will be allocated on the heap then
+ *       deallocated. the matrix is of size level_row level_col
+ */
 void Game::get_display(){
    int row = this->_maze->get_row();
    int col = this->_maze->get_col();
@@ -337,6 +455,17 @@ void Game::get_display(){
    delete [] display;
 }
 
+/*
+ * set_location(int,int,int)
+ * Sets the location of the object at the specified index
+ *    also allowing maze to have correct occupied switches
+ * param: row and col of placement and index of _game_object vector
+ * pre: _game_object[index] is a defined Maze_Object * pointing to a
+ *      continaer on the heap
+ * post: _game_object[index] will have a new location and maze_locations
+ *          within the current level of maze will have been switched for
+ *          occupied state.
+ */
 void Game::set_location(int row, int col, int index){
    int old_row = this->_game_objects.at(index)->get_row();
    int old_col = this->_game_objects.at(index)->get_col();
@@ -349,6 +478,17 @@ void Game::set_location(int row, int col, int index){
    }
 }
 
+/*
+ * set_location(int,int,Maze_Object *)
+ * Sets the location of the object also allowing maze to have 
+ *    correct occupied switches
+ * param: row and col of placement and pointer to Maze_Object
+ * pre: pObject is a defined Maze_Object * pointing to an
+ *       object on the heap
+ * post: *pObject will have a new location and maze_locations
+ *          within the current level of maze will have been switched for
+ *          occupied state.
+ */
 void Game::set_location(int row, int col, Maze_Object * pObject){
    int old_row = pObject->get_row();
    int old_col = pObject->get_col();
@@ -361,6 +501,12 @@ void Game::set_location(int row, int col, Maze_Object * pObject){
    }
 }
 
+/*
+ * restart()
+ * restarts the game back at 0
+ * post: All game statistcs will be pushed back to as
+ *          if the game was ready just after spawn
+ */
 void Game::restart(){
    for(std::vector<Maze_Object *>::iterator it = this->_game_objects.begin();
 	 it != this->_game_objects.end(); it ++){
@@ -371,4 +517,5 @@ void Game::restart(){
    this->current_lev_display();
    this->spawn();
    this->get_display();
+   this->_score = 0;
 }
