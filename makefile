@@ -26,6 +26,7 @@ debug: $(DEBUG_EXECUTABLE)
 clean:
 	rm -f $(EXECUTABLE) $(DEBUG_EXECUTABLE)
 	rm -f $(OBJECTS)
+	rm -f $(CURSED_OBJECTS)
 
 .cpp.o:	
 	$(CC) $(FLAGS) -c $< -o $@
