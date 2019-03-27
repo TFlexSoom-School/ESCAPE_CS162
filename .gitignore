@@ -1,4 +1,6 @@
 *.out
 *.o
 escape
+**/*.o
+**/*.out
 
